@@ -23,7 +23,7 @@ class _SignInState extends State<SignIn> {
           dynamic res = await _auth.signInAnon();
           if (res != null) {
             print("Signed In successfully");
-            print(res);
+            print(res.uid);
           } else {
             print("error signing in");
           }
