@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<MyUser?>.value(
       value: AuthServices().user,//Getting the instance of the user through stream
       initialData: null,
+        catchError: (User,MyUser)  => null,
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(

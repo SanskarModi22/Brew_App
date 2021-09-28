@@ -4,6 +4,7 @@ import 'package:flutter_firestore/Screens/Authenticate/Sign_In.dart';
 import 'package:provider/provider.dart';
 
 import 'Screens/Authenticate/auth.dart';
+import 'Screens/Home/home.dart';
 
 // import 'Screens/Home/home.dart';
 
@@ -14,6 +15,10 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser?>(context);
     print(user);
-    return Auth();
+    if (user == null){
+      return Auth();
+    } else {
+      return Home();
+    }
   }
 }
