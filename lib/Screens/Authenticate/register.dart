@@ -1,12 +1,14 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
 
   final AuthServices _auth = AuthServices();
 
@@ -21,7 +23,7 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign in to Brew Crew'),
+        title: Text('Sign up to Brew Crew'),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -45,7 +47,7 @@ class _SignInState extends State<SignIn> {
               RaisedButton(
                   color: Colors.pink[400],
                   child: Text(
-                    'Sign In',
+                    'Register',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
