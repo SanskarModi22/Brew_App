@@ -13,6 +13,19 @@ class AuthServices {
         .map((User? user) => _userfromFirebase(user!));
   }
 
+  Future SignInwithEmailandPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = result.user;
+      return _userfromFirebase(user!);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
   Future registerwithEmailandPassword(String email, String password) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
