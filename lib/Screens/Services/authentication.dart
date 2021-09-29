@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firestore/Models/user.dart';
+import 'package:flutter_firestore/Screens/Services/database.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -33,7 +34,8 @@ class AuthServices {
         password: password,
       );
       User? user = result.user;
-      return _userfromFirebase(user!);
+      await DatabaseService(uid: user!.uid).updateUser("cappachino", "Sanskar", 100);
+      return _userfromFirebase(user);
     } catch (e) {
       print(e.toString());
       return null;

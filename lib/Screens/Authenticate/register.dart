@@ -84,6 +84,7 @@ class _RegisterState extends State<Register> {
                             email,
                             password,
                           );
+                          print(result);
                           if (result == null) {
                             setState(() {
                               error = 'Please Check your credentials';
