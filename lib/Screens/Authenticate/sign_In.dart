@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
+import 'package:flutter_firestore/Shared/constants.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -42,6 +43,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: "Enail"),
                 validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
@@ -49,6 +51,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                decoration: textInputDecoration.copyWith(hintText: "Password"),
                 validator: (val) =>
                     val!.length < 6 ? 'Enter password greater than 6' : null,
                 obscureText: true,
