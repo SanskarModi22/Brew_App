@@ -1,23 +1,22 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 
 class Register extends StatefulWidget {
-
   final Function toggleView;
-  Register({ required this.toggleView });
+  Register({required this.toggleView});
 
   @override
   _RegisterState createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-
   final AuthServices _auth = AuthServices();
+  final _formkey = GlobalKey<FormState>();
 
   // text field state
   String email = '';
   String password = '';
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +37,20 @@ class _RegisterState extends State<Register> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: Form(
+          key: _formkey,
           child: Column(
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
+                validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                validator: (val) =>
+                    val!.length < 6 ? 'Enter password greater than 6' : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -55,15 +58,34 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               RaisedButton(
-                  color: Colors.pink[400],
-                  child: Text(
-                    'Register',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    print(email);
-                    print(password);
+                color: Colors.pink[400],
+                child: Text(
+                  'Register',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  if (_formkey.currentState!.validate()) {
+                    dynamic result = await _auth.registerwithEmailandPassword(
+                      email,
+                      password,
+                    );
+                    if (result == null) {
+                      setState(() {
+                        error = 'Please Check your credentials';
+                      });
+                    }
                   }
+                },
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 13.0,
+                ),
               ),
             ],
           ),

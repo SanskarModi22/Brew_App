@@ -1,18 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 
 class SignIn extends StatefulWidget {
-
   final Function toggleView;
-  SignIn({ required this.toggleView });
+  SignIn({required this.toggleView});
 
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-
   final AuthServices _auth = AuthServices();
 
   // text field state
@@ -61,10 +58,11 @@ class _SignInState extends State<SignIn> {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
+                    // if (_formkey.currentState!.validate()) {
                     print(email);
                     print(password);
-                  }
-              ),
+                    // }
+                  }),
             ],
           ),
         ),

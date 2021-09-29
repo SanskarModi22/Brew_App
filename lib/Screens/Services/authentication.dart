@@ -6,9 +6,25 @@ class AuthServices {
   MyUser? _userfromFirebase(User user) {
     return user != null ? MyUser(uid: user.uid) : null;
   }
-  Stream <MyUser?> get user{
 
-    return _auth.authStateChanges().map((User? user) => _userfromFirebase(user!));
+  Stream<MyUser?> get user {
+    return _auth
+        .authStateChanges()
+        .map((User? user) => _userfromFirebase(user!));
+  }
+
+  Future registerwithEmailandPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User? user = result.user;
+      return _userfromFirebase(user!);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 
   Future signInAnon() async {
@@ -22,10 +38,11 @@ class AuthServices {
       return null;
     }
   }
-  Future signOut() async{
-    try{
+
+  Future signOut() async {
+    try {
       return await _auth.signOut();
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       return null;
     }
