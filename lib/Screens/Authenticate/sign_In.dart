@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 import 'package:flutter_firestore/Shared/constants.dart';
+import 'package:flutter_firestore/Shared/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -13,7 +14,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthServices _auth = AuthServices();
   final _formkey = GlobalKey<FormState>();
-
+bool loading = false;
   // text field state
   String email = '';
   String password = '';
@@ -21,7 +22,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading?Loading():Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -68,6 +69,9 @@ class _SignInState extends State<SignIn> {
                   ),
                   onPressed: () async {
                     if (_formkey.currentState!.validate()) {
+                      setState(() {
+                        loading=true;
+                      });
                       dynamic result = await _auth.SignInwithEmailandPassword(
                         email,
                         password,
@@ -75,6 +79,7 @@ class _SignInState extends State<SignIn> {
                       if (result == null) {
                         setState(() {
                           error = 'Could not Sign In';
+                          loading =false;
                         });
                       }
                     }
