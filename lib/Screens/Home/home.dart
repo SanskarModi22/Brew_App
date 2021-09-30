@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firestore/Models/brew.dart';
 import 'package:flutter_firestore/Screens/Home/brew_list.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 import 'package:flutter_firestore/Screens/Services/database.dart';
@@ -10,7 +11,7 @@ class Home extends StatelessWidget {
   final AuthServices _auth = AuthServices();
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot?>.value(
+    return StreamProvider<List<Brew>?>.value(
       value: DatabaseService().brews,
       initialData: null,
       catchError: (ctx,QuerySnapshot)  => null,
