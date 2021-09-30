@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_firestore/Models/brew.dart';
 import 'package:flutter_firestore/Screens/Home/brew_list.dart';
+import 'package:flutter_firestore/Screens/Home/settings.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 import 'package:flutter_firestore/Screens/Services/database.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,8 @@ class Home extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-              padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: Text('bottom sheet'),
-            );
+                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+                child: SettingsForm());
           });
     }
 
