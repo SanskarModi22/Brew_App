@@ -53,7 +53,7 @@ class _SignInState extends State<SignIn> {
         showLoading = false;
       });
 
-      if(authCredential?.user != null){
+      if(authCredential.user != null){
         Navigator.push(context, MaterialPageRoute(builder: (context)=> Home()));
       }
 
