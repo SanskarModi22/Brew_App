@@ -4,10 +4,10 @@ import 'package:flutter_firestore/Screens/Home/home.dart';
 import 'package:flutter_firestore/Screens/Services/authentication.dart';
 import 'package:flutter_firestore/Shared/constants.dart';
 import 'package:flutter_firestore/Shared/loading.dart';
-class SocialAuth extends StatefulWidget {
-  const SocialAuth({Key? key,this.toggleView}) : super(key: key);
-  final Function? toggleView;
 
+class SocialAuth extends StatefulWidget {
+  const SocialAuth({Key? key, this.toggleView}) : super(key: key);
+  final Function? toggleView;
 
   @override
   _SocialAuthState createState() => _SocialAuthState();
@@ -28,8 +28,7 @@ class _SocialAuthState extends State<SocialAuth> {
   bool showLoading = false;
   @override
   Widget build(BuildContext context) {
-    return
-    Scaffold(
+    return Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -43,18 +42,41 @@ class _SocialAuthState extends State<SocialAuth> {
           ),
         ],
       ),
-      body: ElevatedButton(
-child: Text("Sign In with Google"),
-        onPressed: () async {
-          dynamic result = await _auth.signInWithGoogle();
+      body: Center(
+        child: Container(
+          height: 100,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                child: Text("Sign In with Google"),
+                onPressed: () async {
+                  dynamic result = await _auth.signInWithGoogle();
 
-                              if (result == null) {
-                                setState(() {
-                                  error = 'Could not Sign In';
-                                  loading =false;
-                                });
-                              }
-        },
+                  if (result == null) {
+                    setState(() {
+                      error = 'Could not Sign In';
+                      loading = false;
+                    });
+                  }
+                },
+              ),
+              ElevatedButton(
+                child: Text("Sign In with GitHub"),
+                onPressed: () async {
+                  dynamic result = await _auth.signInWithGitHub(context);
+                  print(result);
+                  if (result == null) {
+                    setState(() {
+                      error = 'Could not Sign In';
+                      loading = false;
+                    });
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       // body: Container(
       //   padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),

@@ -3,6 +3,7 @@ import 'package:flutter_firestore/Models/user.dart';
 import 'package:flutter_firestore/Screens/Services/database.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:github_sign_in/github_sign_in.dart';
 
 class AuthServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -42,6 +43,25 @@ class AuthServices {
 //         codeAutoRetrievalTimeout: (verificationId) async {},
 //     );
 // }
+  Future signInWithGitHub(BuildContext context) async {
+    // Create a GitHubSignIn instance
+    final GitHubSignIn gitHubSignIn = GitHubSignIn(
+        clientId:"82530c495bca90fe7536",
+        clientSecret: "39d8c26359b86473e885b9966fdef9747b012c90",
+        redirectUrl: 'https://my-project.firebaseapp.com/__/auth/handler');
+
+    // Trigger the sign-in flow
+    final result = await gitHubSignIn.signIn(context);
+
+    // Create a credential from the access token
+    final githubAuthCredential = GithubAuthProvider.credential(result.token);
+
+    // Once signed in, return the UserCredential
+    UserCredential res = await FirebaseAuth.instance.signInWithCredential(githubAuthCredential);
+    User? user = res.user;
+    userfromFirebase(user!);
+    return user;
+  }
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     try {
